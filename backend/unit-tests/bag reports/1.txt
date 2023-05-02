@@ -12,4 +12,4 @@ Priority: High
         в виде пустой строки и/или pattern в виде пустой строки
 Фактический результат:
     1-2 - Программа выводит результат true/false 
-Ожидаемый результат: Получение исключения RangeError с сообщением 'parametres can have legth only from 1 to 20'
+Ожидаемый результат: Получение исключения RangeError с сообщением 'parametres can have length only from 1 to 20'

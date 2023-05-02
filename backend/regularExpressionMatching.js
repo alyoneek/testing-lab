@@ -1,5 +1,17 @@
 class Solution {
   isMatch(text, pattern) {
+    if (!this.checkLength(text) || !this.checkLength(pattern)) {
+      throw RangeError('parametres can have length only from 1 to 20');
+    }
+
+    return this.solve(text, pattern);
+  }
+
+  checkLength(value) {
+    return value.length >= 1 && value.length <= 20;
+  }
+
+  solve(text, pattern) {
     const isBaseCase = pattern.length === 0;
     if (isBaseCase) return text.length === 0;
 
@@ -9,9 +21,8 @@ class Solution {
       isNextPatternWildCard = pattern.length >= 2 && pattern[1] === '*';
 
     return isNextPatternWildCard
-      ? this.isMatch(text, pattern.slice(2)) ||
-          (isFirstMatch && this.isMatch(text.slice(1), pattern))
-      : isFirstMatch && this.isMatch(text.slice(1), pattern.slice(1));
+      ? this.solve(text, pattern.slice(2)) || (isFirstMatch && this.solve(text.slice(1), pattern))
+      : isFirstMatch && this.solve(text.slice(1), pattern.slice(1));
   }
 }
 
