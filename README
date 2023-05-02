@@ -1,4 +1,5 @@
-Unit тесты для решения задачи с leetcode лежат в папке backend/unit-tests
+Unit тесты + баг репорты для решения задачи с leetcode лежат в папке backend/unit-tests
+Само решение расположено в папке backend под названием regularExpressionMatching.js
 
 Как запустить бэкенд часть?
 
