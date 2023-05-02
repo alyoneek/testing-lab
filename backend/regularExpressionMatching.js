@@ -4,6 +4,14 @@ class Solution {
       throw new TypeError('parameters can be only strings');
     }
 
+    if (!this.checkOnlyLetters(text)) {
+      throw new Error('string contains only lowercase English letters');
+    }
+
+    if (!this.checkOnlyLettersAndSymbols(pattern)) {
+      throw new Error(`pattern contains only lowercase English letters, '.' and '*'`);
+    }
+
     if (!this.checkLength(text) || !this.checkLength(pattern)) {
       throw RangeError('parametres can have length only from 1 to 20');
     }
@@ -17,6 +25,14 @@ class Solution {
 
   checkType(value) {
     return typeof value === 'string';
+  }
+
+  checkOnlyLetters(value) {
+    return /^[A-Za-z]*$/.test(value);
+  }
+
+  checkOnlyLettersAndSymbols(value) {
+    return /^[A-Za-z.*]*$/.test(value);
   }
 
   solve(text, pattern) {
