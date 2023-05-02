@@ -12,6 +12,10 @@ class Solution {
       throw new Error(`pattern contains only lowercase English letters, '.' and '*'`);
     }
 
+    if (!this.checkLowercase(text) || !this.checkLowercase(pattern)) {
+      throw Error('parameters contain only lowercase English letters');
+    }
+
     if (!this.checkLength(text) || !this.checkLength(pattern)) {
       throw RangeError('parametres can have length only from 1 to 20');
     }
@@ -33,6 +37,10 @@ class Solution {
 
   checkOnlyLettersAndSymbols(value) {
     return /^[A-Za-z.*]*$/.test(value);
+  }
+
+  checkLowercase(value) {
+    return value.toLowerCase() === value;
   }
 
   solve(text, pattern) {

@@ -302,7 +302,7 @@ describe('regular expression matching incorrect input tests', () => {
    */
   test('should throw error when pattern contains uppercase English letters', () => {
     expect(() => funcWithError('abc', '.Bc')).toThrow(
-      'parameters contain only lowercase English letters',
+      new Error('parameters contain only lowercase English letters'),
     );
   });
 
@@ -435,7 +435,7 @@ describe('regular expression matching incorrect input tests', () => {
    */
   test('should throw error when string has not only English letters', () => {
     expect(() => funcWithError('123абв.', '.*')).toThrow(
-      'string contains only lowercase English letters',
+      new Error('string contains only lowercase English letters'),
     );
   });
 
@@ -444,7 +444,7 @@ describe('regular expression matching incorrect input tests', () => {
    */
   test('should throw error when pattern has not only English letters', () => {
     expect(() => funcWithError('abc', '123абв.*')).toThrow(
-      `pattern contains only lowercase English letters, '.' and '*'`,
+      new Error(`pattern contains only lowercase English letters, '.' and '*'`),
     );
   });
 
@@ -452,6 +452,8 @@ describe('regular expression matching incorrect input tests', () => {
    * Check if function throw an error when pattern is not satisfy constraint 'for each appearance of the character '*' should be a previous valid character to match'
    */
   test(`should throw error when pattern does not have  valid character before '*'`, () => {
-    expect(() => funcWithError('abc', '*')).toThrow(`before '*' have to be letter or '.'`);
+    expect(() => funcWithError('abc', '*')).toThrow(
+      new Error(`before '*' have to be letter or '.'`),
+    );
   });
 });
