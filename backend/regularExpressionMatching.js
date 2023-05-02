@@ -1,5 +1,9 @@
 class Solution {
   isMatch(text, pattern) {
+    if (!this.checkType(text) || !this.checkType(pattern)) {
+      throw new TypeError('parameters can be only strings');
+    }
+
     if (!this.checkLength(text) || !this.checkLength(pattern)) {
       throw RangeError('parametres can have length only from 1 to 20');
     }
@@ -9,6 +13,10 @@ class Solution {
 
   checkLength(value) {
     return value.length >= 1 && value.length <= 20;
+  }
+
+  checkType(value) {
+    return typeof value === 'string';
   }
 
   solve(text, pattern) {
