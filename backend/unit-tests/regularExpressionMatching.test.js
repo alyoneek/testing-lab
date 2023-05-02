@@ -225,6 +225,7 @@ describe('regular expression matching correct input tests', () => {
 describe('regular expression matching incorrect input tests', () => {
   let solution;
   let funcWithError;
+  let spySolutionSolve;
 
   beforeAll(() => {
     solution = new Solution();
@@ -234,6 +235,14 @@ describe('regular expression matching incorrect input tests', () => {
     };
   });
 
+  beforeEach(() => {
+    spySolutionSolve = jest.spyOn(solution, 'solve');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   /**
    * Check if function throw an error when string is not satisfy constraint '1 <= s.length <= 20'
    */
@@ -241,6 +250,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('aaaaaaaaaaaaaaaaaaaaa', '.*')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -250,6 +260,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('aa', '................abvc.')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -259,6 +270,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('aaaaaaaaaaaaaaaaaaaaab', '.*')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -268,6 +280,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('aa', '................abvc..')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -277,6 +290,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('', '.*')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -286,6 +300,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', '')).toThrow(
       new RangeError('parametres can have length only from 1 to 20'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -295,6 +310,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('aaBCva', '.*')).toThrow(
       new Error('parameters contain only lowercase English letters'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -304,6 +320,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', '.Bc')).toThrow(
       new Error('parameters contain only lowercase English letters'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -311,6 +328,7 @@ describe('regular expression matching incorrect input tests', () => {
    */
   test('should throw error when string is number', () => {
     expect(() => funcWithError(123, '.*')).toThrow(new TypeError('parameters can be only strings'));
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -320,6 +338,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', 123)).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -329,6 +348,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError(undefined, '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -338,6 +358,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', undefined)).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -347,6 +368,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError(null, '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -356,6 +378,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', null)).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -365,6 +388,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError(true, '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -374,6 +398,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', false)).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -383,6 +408,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError(['a', 1, true], '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -392,6 +418,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', ['a', 1, true])).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -401,6 +428,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError({ a: 10, b: true }, '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -410,6 +438,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', { a: 10, b: true })).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -419,6 +448,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError(() => console.log(2), '.*')).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -428,6 +458,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', () => console.log(2))).toThrow(
       new TypeError('parameters can be only strings'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -437,6 +468,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('123абв.', '.*')).toThrow(
       new Error('string contains only lowercase English letters'),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -446,6 +478,7 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', '123абв.*')).toThrow(
       new Error(`pattern contains only lowercase English letters, '.' and '*'`),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 
   /**
@@ -455,5 +488,6 @@ describe('regular expression matching incorrect input tests', () => {
     expect(() => funcWithError('abc', '*')).toThrow(
       new Error(`before '*' have to be letter or '.'`),
     );
+    expect(spySolutionSolve).toBeCalledTimes(0);
   });
 });
