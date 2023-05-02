@@ -20,7 +20,15 @@ class Solution {
       throw RangeError('parametres can have length only from 1 to 20');
     }
 
-    return this.solve(text, pattern);
+    if (!this.ckeckStarSymbol(pattern)) {
+      throw new Error(`before '*' have to be letter or '.'`);
+    }
+
+    const answer = this.solve(text, pattern);
+
+    if (answer === '') return false;
+
+    return answer;
   }
 
   checkLength(value) {
@@ -41,6 +49,17 @@ class Solution {
 
   checkLowercase(value) {
     return value.toLowerCase() === value;
+  }
+
+  ckeckStarSymbol(value) {
+    for (let i = 0; i < value.length; i++) {
+      if (value[i] === '*') {
+        if (i === 0 || !/^[A-Za-z.]*$/.test(value[i - 1])) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   solve(text, pattern) {
