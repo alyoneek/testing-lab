@@ -56,8 +56,6 @@ const Regular = () => {
     });
   }, []);
 
-  console.log(error);
-
   const onSubmit = async (values) => {
     const result = await createTest(values);
     console.log(result);
@@ -119,7 +117,7 @@ const Regular = () => {
                 <td>{test.string}</td>
                 <td>{test.pattern}</td>
                 <td>{test.result?.toString()}</td>
-                <td>{test.time?.split('T')[0]}</td>
+                <td>{test.createdAt?.split('T')[0]}</td>
               </tr>
             ))}
           </tbody>

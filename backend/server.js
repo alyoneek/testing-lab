@@ -1,43 +1,14 @@
-const express = require('express');
-const app = express();
-const Solution = require('./regularExpressionMatching');
+const mongoose = require('mongoose');
+const app = require('./app');
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+require('dotenv').config();
 
-app.listen(5000, () => {
-  console.log('success');
-});
-
-const tests = [];
-
-app.get('/tests', (req, res) => {
-  return res.status(200).json({
-    data: tests,
-    error: null,
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    app.listen(PORT, console.log('Server started on port 5000'));
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});
-
-app.post('/tests', (req, res) => {
-  try {
-    const { string, pattern } = req.body;
-    const solution = new Solution();
-    const result = solution.isMatch(string, pattern);
-    const newTest = {
-      id: tests.length,
-      string,
-      pattern,
-      result,
-      time: new Date(),
-    };
-    tests.unshift(newTest);
-    return res.status(201).json({
-      data: newTest,
-      error: null,
-    });
-  } catch (error) {
-    return res.status(400).json({
-      data: null,
-      error: error.message,
-    });
-  }
-});

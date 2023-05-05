@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getTests = async () => {
   try {
     const response = await axios.get('/tests');
-    return response.data;
+    return { data: response.data, error: null };
   } catch (e) {
     if (e.response) {
       return e.response.data;
@@ -16,7 +16,7 @@ export const getTests = async () => {
 export const createTest = async (values) => {
   try {
     const response = await axios.post('/tests', values);
-    return response.data;
+    return { data: response.data, error: null };
   } catch (e) {
     if (e.response) {
       return e.response.data;

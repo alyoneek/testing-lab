@@ -1,4 +1,4 @@
-const Solution = require('../regularExpressionMatching');
+const Solution = require('../../regularExpressionMatching');
 
 describe('regular expression matching correct input tests', () => {
   let solution;
