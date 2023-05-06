@@ -35,6 +35,7 @@ describe('Form', () => {
         expect(spy).toHaveBeenCalledWith({ string: 'aa', pattern: 'aa' });
       });
     });
+  });
 
   describe('when inputs incorrect', () => {
     test('should not call createTest', async () => {
