@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  results: ['aa'],
+  results: [],
 };
 
 export const regularSlice = createSlice({
@@ -11,7 +11,7 @@ export const regularSlice = createSlice({
     addTest: (state, { payload }) => {
       state.results.unshift(payload);
     },
-    addTests: (state, { payload }) => {
+    setTests: (state, { payload }) => {
       state.results = payload;
     },
   },

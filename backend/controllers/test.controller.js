@@ -31,7 +31,17 @@ const createTest = async (req, res) => {
   }
 };
 
+const deleteTest = async (req, res) => {
+  try {
+    await Test.findByIdAndDelete(req.params.id);
+    res.status(200).json();
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getTests,
   createTest,
+  deleteTest,
 };

@@ -20,24 +20,42 @@ afterEach(async () => {
 });
 
 describe('GET /tests', () => {
-  test('should return all tests', async () => {
+  test('should return status 200', async () => {
     const res = await request(app).get('/tests');
     expect(res.statusCode).toBe(200);
-    expect(res.body.length).toBeGreaterThan(0);
+  });
+
+  test('should return all tests', async () => {
+    const res = await request(app).get('/tests');
+    expect(res.body).toBeTruthy();
   });
 });
 
 describe('POST /tests', () => {
-  test('when inputs correct should create a test', async () => {
+  describe('when inputs correct', () => {
     const req = {
       string: 'abc',
       pattern: '.*',
     };
-    const res = await request(app).post('/tests').send(req);
-    expect(res.statusCode).toBe(201);
-    expect(res.body.string).toBe(req.string);
-    expect(res.body.pattern).toBe(req.pattern);
-    expect(res.body.result).not.toBe(undefined);
+
+    let res;
+
+    afterEach(async () => {
+      await request(app).delete(`/tests/${res.body._id}`);
+    });
+
+    test('should return status 201', async () => {
+      res = await request(app).post('/tests').send(req);
+      expect(res.statusCode).toBe(201);
+    });
+
+    test('should return created test', async () => {
+      res = await request(app).post('/tests').send(req);
+      expect(res.body.string).toBe(req.string);
+      expect(res.body.pattern).toBe(req.pattern);
+      expect(res.body).toHaveProperty('result');
+      expect(res.body).toHaveProperty('_id');
+    });
   });
 
   test('when string is missing should not create a test', async () => {

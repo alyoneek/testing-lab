@@ -1,8 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { regularReducer } from './regularSlice';
 
-export const store = configureStore({
-  reducer: {
-    regular: regularReducer,
-  },
+const rootReducer = combineReducers({
+  regular: regularReducer,
 });
+
+export const createReduxStore = (initialState = {}) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState: initialState,
+  });
+};

@@ -6,7 +6,7 @@ export const getTests = async () => {
     return { data: response.data, error: null };
   } catch (e) {
     if (e.response) {
-      return e.response.data;
+      return { data: null, error: e.response.data.message };
     } else {
       return { data: null, error: e.message };
     }
@@ -19,7 +19,7 @@ export const createTest = async (values) => {
     return { data: response.data, error: null };
   } catch (e) {
     if (e.response) {
-      return e.response.data;
+      return { data: null, error: e.response.data.message };
     } else {
       return { data: null, error: e.message };
     }
