@@ -58,7 +58,7 @@ const Form = () => {
 
   return (
     <div>
-      <h1>Input data</h1>
+      <h1 id="form-title">Input data</h1>
       <form onSubmit={handleSubmit(async (values) => await onSubmit(values))}>
         <div className="form-group">
           <label htmlFor="string">String</label>
@@ -70,7 +70,11 @@ const Form = () => {
             {...register('string')}
             className={`form-control ${errors.string ? 'is-invalid' : ''}`}
           />
-          <div className="invalid-feedback">{errors.string?.message}</div>
+          {errors.string && (
+            <div className="invalid-feedback" data-testid="validation">
+              {errors.string.message}
+            </div>
+          )}
         </div>
 
         <div className="form-group">
@@ -83,10 +87,18 @@ const Form = () => {
             {...register('pattern')}
             className={`form-control ${errors.pattern ? 'is-invalid' : ''}`}
           />
-          <div className="invalid-feedback">{errors.pattern?.message}</div>
+          {errors.pattern && (
+            <div className="invalid-feedback" data-testid="validation">
+              {errors.pattern.message}
+            </div>
+          )}
         </div>
 
-        {error && <div className="text-danger">{error}</div>}
+        {error && (
+          <div className="text-danger" id="error-message">
+            {error}
+          </div>
+        )}
 
         <Button variant="primary" type="submit" className="mt-3" data-testid="submit">
           Submit

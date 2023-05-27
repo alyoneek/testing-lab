@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import * as api from '../../api';
 import Form from '../../components/Form';
 import { renderWithProviders } from '../utils/renderWithProvider';
@@ -20,15 +21,16 @@ describe('Form', () => {
     });
 
     test('should call createTest with values', async () => {
-      renderWithProviders(<Form />);
+      renderWithProviders(<Form stringLabel="String" patternLabel="Pattern" />);
 
-      const inputString = screen.getByRole('textbox', { name: /string/i });
-      const inputPattern = screen.getByRole('textbox', { name: /pattern/i });
+      const inputString = screen.getByLabelText('String');
+      const inputPattern = screen.getByLabelText('Pattern');
 
-      fireEvent.change(inputString, { target: { value: 'aa' } });
-      fireEvent.change(inputPattern, { target: { value: 'aa' } });
-
-      fireEvent.click(screen.getByTestId('submit'));
+      await act(async () => {
+        fireEvent.change(inputString, { target: { value: 'aa' } });
+        fireEvent.change(inputPattern, { target: { value: 'aa' } });
+        fireEvent.click(screen.getByTestId('submit'));
+      });
 
       await waitFor(() => {
         expect(spy).toBeCalledTimes(1);
@@ -44,10 +46,12 @@ describe('Form', () => {
       const inputString = screen.getByRole('textbox', { name: /string/i });
       const inputPattern = screen.getByRole('textbox', { name: /pattern/i });
 
-      fireEvent.change(inputString, { target: { value: 'aa12' } });
-      fireEvent.change(inputPattern, { target: { value: '' } });
+      await act(async () => {
+        fireEvent.change(inputString, { target: { value: 'aa12' } });
+        fireEvent.change(inputPattern, { target: { value: '' } });
 
-      fireEvent.click(screen.getByTestId('submit'));
+        fireEvent.click(screen.getByTestId('submit'));
+      });
 
       await waitFor(() => {
         expect(spy).toBeCalledTimes(0);

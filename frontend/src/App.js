@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/regular" element={<Regular />} />
+      <Route path="/main" element={<Regular />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
